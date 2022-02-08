@@ -18,7 +18,7 @@ pipeline {
          steps {
           sh '''
             echo 'Building BackEnd'
-            cd /var/jenkins_home/code/k8s_master/db_server
+            cd /var/jenkins_home/code/db_server
             docker build -t db_server:${BLD_VERSION} .
           '''
 
