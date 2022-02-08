@@ -16,10 +16,9 @@ pipeline {
         }
      }
       stage('BuildDBCode') {
-         when {
-            expression { params.component == 'only-DB' ||  params.component == 'All'}
-         
-         }
+          when { 
+             expression { params.component == 'Only-AppServer' || params.component == 'All' }
+          }
          steps {
           sh '''
             echo 'Building BackEnd'
@@ -32,7 +31,7 @@ pipeline {
          
        stage('BuildAppCode') {
           when { 
-             expression {params.component == 'Only-AppServer' || params.component == 'All' }
+             expression { params.component == 'Only-AppServer' || params.component == 'All' }
           }
          steps {
           sh '''
@@ -47,9 +46,9 @@ pipeline {
       }
          
          stage('BuildUICode') {
-            when {
-               expression { params.component =='UI' || params.component =='All }
-            }
+          when { 
+             expression { params.component == 'Only-AppServer' || params.component == 'All' }
+          }
                
             steps {
                
