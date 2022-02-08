@@ -28,7 +28,7 @@ pipeline {
 
             
          }
-         
+      }  
        stage('BuildAppCode') {
           when { 
              expression { params.component == 'Only-AppServer' || params.component == 'All' }
