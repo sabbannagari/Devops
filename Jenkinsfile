@@ -3,7 +3,7 @@ pipeline {
    parameters {
       string(defaultValue: 'master', description: 'Test Branch', name: 'BLD_BRANCH');
       string(defaultValue: '5.0.0', description: 'Test Build', name: 'BLD_VERSION');  
-      string(defaultValue:'All', decsiption: 'Component to Build', name:'component');
+      string(defaultValue: 'All', description: 'Component to Build', name:'component');
    }
    stages {
     stage('CheckOutCode') {
