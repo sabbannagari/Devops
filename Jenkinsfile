@@ -15,7 +15,7 @@ pipeline {
          steps{
             
             script {
-               env.REPOSITORY_URL="https://"  + "${REPOSITORY_URL}"
+               env.REPOSITORY_URL="https://"  + "${REPOSITORY_URI}"
             }
          }     
       }
