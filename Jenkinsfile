@@ -37,7 +37,7 @@ pipeline {
             docker build -t ${REPOSITORY_URI}/db_server:${BLD_VERSION} . 
             '''
             docker.withRegistry($REPOSITORY_URL, 'ecr:us-east-1:mykey')
-            def DOCKER_IMG=${REPOSITORY_URI}/db_server:${BLD_VERSION}
+            def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
             DOCKER_IMG.push()
          }
       }  
