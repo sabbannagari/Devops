@@ -2,7 +2,7 @@ pipeline {
    environment {
          AWS_ACCOUNT_ID="312897329659"
          AWS_DEFAULT_REGION="us-east-1"
-         REPOSITORY_URI = "https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com”
+         REPOSITORY_URI = "https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
    }
    agent any 
    parameters {
