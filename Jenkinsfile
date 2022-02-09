@@ -54,7 +54,14 @@ pipeline {
             cd /var/jenkins_home/code/app_server
             docker build -t ${REPOSITORY_URI}/app_server:${BLD_VERSION} .
           '''
-
+          script {
+               def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
+               def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
+               docker.withRegistry(REPOSITORY_URL, 'ecr:us-east-1:mykey') {
+                  docker.image(DOCKER_IMG).push()
+                  
+               }
+            }
             
          }
          
@@ -70,8 +77,15 @@ pipeline {
                sh '''
                  cd /var/jenkins_home/code/web_server
                  docker build -t ${REPOSITORY_URI}/web_server:${BLD_VERSION} .
-                '''
-            
+               '''
+              script {
+                 def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
+                 def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
+                 docker.withRegistry(REPOSITORY_URL, 'ecr:us-east-1:mykey') {
+                   docker.image(DOCKER_IMG).push()
+                  
+               }
+            }          
             }
                 
          }
