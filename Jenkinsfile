@@ -13,9 +13,12 @@ pipeline {
    }
    stages {
       stage('setupenv') {
-         script {
-            env.REPOSITORY_URL="https://"  + ${REPOSITORY_URL}
-         }
+         steps{
+            
+            script {
+               env.REPOSITORY_URL="https://"  + ${REPOSITORY_URL}
+            }
+         }     
       }
     stage('CheckOutCode') {
         steps {
