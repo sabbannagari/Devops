@@ -38,7 +38,8 @@ pipeline {
                def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
                def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
                docker.withRegistry(REPOSITORY_URL, 'ecr:us-east-1:mykey') {
-                  DOCKER_IMG.push()
+                  docker.image(DOCKER_IMG).push()
+                  
                }
             }
          }
