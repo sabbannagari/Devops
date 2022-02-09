@@ -27,7 +27,7 @@ pipeline {
              expression { params.component == 'Only-AppServer' || params.component == 'All' }
           }
          steps {
-          env.REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
+          
           sh '''
             echo 'Building BackEnd'
          
@@ -35,8 +35,9 @@ pipeline {
             docker build -t ${REPOSITORY_URI}/db_server:${BLD_VERSION} . 
             '''
             script {
+               def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
                def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
-               docker.withRegistry($REPOSITORY_URL, 'ecr:us-east-1:mykey')
+               docker.withRegistry(REPOSITORY_URL, 'ecr:us-east-1:mykey')
                DOCKER_IMG.push()
             }
          }
