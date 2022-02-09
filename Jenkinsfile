@@ -1,7 +1,7 @@
 pipeline {
    environment {
-         AWS_ACCOUNT_ID=”312897329659”
-         AWS_DEFAULT_REGION=”us-east-1”
+         AWS_ACCOUNT_ID="312897329659"
+         AWS_DEFAULT_REGION="us-east-1"
          REPOSITORY_URI = "https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com”
    }
    agent any 
@@ -34,7 +34,7 @@ pipeline {
             docker build -t ${REPOSITORY_URI}/db_server:${BLD_VERSION} .     
             '''
            docker.withRegistry(${REPOSITORY_URI}, 'ecr:us-east-1:mykey') {
-           docker.image("${REPOSITORY_URI}/db_server:${BLD_VERSION}").push(${BLD_VERSION})
+           docker.image(${REPOSITORY_URI}/db_server:${BLD_VERSION}).push(${BLD_VERSION})
            }
             
          }
