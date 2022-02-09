@@ -29,11 +29,12 @@ pipeline {
          steps {
           sh '''
             echo 'Building BackEnd'
-            REPOSITORY_URL="https://${REPOSITORY_URI}/db_server:${BLD_VERSION}"
+         
             cd /var/jenkins_home/code/db_server
             docker build -t ${REPOSITORY_URI}/db_server:${BLD_VERSION} . 
             '''
             script {
+               def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
                def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
                docker.withRegistry($REPOSITORY_URL, 'ecr:us-east-1:mykey')
                DOCKER_IMG.push()
