@@ -56,7 +56,7 @@ pipeline {
           '''
           script {
                def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
-               def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
+               def DOCKER_IMG="${REPOSITORY_URI}" + '/app_server:' + "${BLD_VERSION}"
                docker.withRegistry(REPOSITORY_URL, 'ecr:us-east-1:mykey') {
                   docker.image(DOCKER_IMG).push()
                   
@@ -80,7 +80,7 @@ pipeline {
                '''
               script {
                  def REPOSITORY_URL='https://' + "${REPOSITORY_URI}"
-                 def DOCKER_IMG="${REPOSITORY_URI}" + '/db_server:' + "${BLD_VERSION}"
+                 def DOCKER_IMG="${REPOSITORY_URI}" + '/web_server:' + "${BLD_VERSION}"
                  docker.withRegistry(REPOSITORY_URL, 'ecr:us-east-1:mykey') {
                    docker.image(DOCKER_IMG).push()
                   
