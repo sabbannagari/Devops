@@ -1,4 +1,9 @@
 pipeline {
+   environment {
+         AWS_ACCOUNT_ID=”312897329659”
+         AWS_DEFAULT_REGION=”us-east-1”
+         REPOSITORY_URI = "https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com”
+   }
    agent any 
    parameters {
       string(defaultValue: 'master', description: 'Test Branch', name: 'BLD_BRANCH');
@@ -15,17 +20,22 @@ pipeline {
            }
         }
      }
+      
       stage('BuildDBCode') {
           when { 
              expression { params.component == 'Only-AppServer' || params.component == 'All' }
           }
          steps {
+
           sh '''
+         
             echo 'Building BackEnd'
             cd /var/jenkins_home/code/db_server
-            docker build -t db_server:${BLD_VERSION} .
-          '''
-
+            docker build -t ${REPOSITORY_URI}/db_server:${BLD_VERSION} .     
+            '''
+           docker.withRegistry(${REPOSITORY_URI}, 'ecr:us-east-1:mykey') {
+           docker.image("${REPOSITORY_URI}/db_server:${BLD_VERSION}").push(${BLD_VERSION})
+           }
             
          }
       }  
@@ -37,7 +47,7 @@ pipeline {
           sh '''
             echo 'Building BackEnd'
             cd /var/jenkins_home/code/app_server
-            docker build -t app_server:${BLD_VERSION} .
+            docker build -t ${REPOSITORY_URI}/app_server:${BLD_VERSION} .
           '''
 
             
@@ -54,7 +64,7 @@ pipeline {
                
                sh '''
                  cd /var/jenkins_home/code/web_server
-                 docker build -t web_server:${BLD_VERSION} .
+                 docker build -t ${REPOSITORY_URI}/web_server:${BLD_VERSION} .
                 '''
             
             }
