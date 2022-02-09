@@ -12,6 +12,11 @@ pipeline {
       string(defaultValue: 'All', description: 'Component to Build', name:'component');
    }
    stages {
+      stage('setupenv') {
+         script {
+            env.REPOSITORY_URL="https://"  + ${REPOSITORY_URL}
+         }
+      }
     stage('CheckOutCode') {
         steps {
            dir('/var/jenkins_home/code') {
@@ -28,6 +33,7 @@ pipeline {
           }
          steps {
 
+
           sh '''
          
             echo 'Building BackEnd'
@@ -35,6 +41,7 @@ pipeline {
             docker build -t ${REPOSITORY_URI}/db_server:${BLD_VERSION} .     
             '''
             script {
+   
                docker.withRegistry($REPOSITORY_URL, 'ecr:us-east-1:mykey') {
                docker.image("$REPOSITORY_URL/db_server:$BLD_VERSION").push("$BLD_VERSION")
            }
