@@ -33,8 +33,8 @@ pipeline {
             cd /var/jenkins_home/code/db_server
             docker build -t ${REPOSITORY_URL}/db_server:${BLD_VERSION} .     
             '''
-           docker.withRegistry("${REPOSITORY_URL}", 'ecr:us-east-1:mykey') {
-           docker.image("${REPOSITORY_URL}/db_server:${BLD_VERSION}").push(${BLD_VERSION})
+           docker.withRegistry("$REPOSITORY_URL", 'ecr:us-east-1:mykey') {
+           docker.image("$REPOSITORY_URL/db_server:$BLD_VERSION").push("$BLD_VERSION")
            }
             
          }
