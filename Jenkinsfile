@@ -91,9 +91,9 @@ pipeline {
          }
       stage('deploy-into-EKS-Cluster') {
          steps {
-         script {
+    
               KubernetesDeploy(configs:'deploytokens.yml', kubeconfigId:'kube-config',enableconfigSubstitution:true)
-         }
+        
          }
       }
    }
