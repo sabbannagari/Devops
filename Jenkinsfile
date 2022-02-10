@@ -89,5 +89,9 @@ pipeline {
             }
                 
          }
+      stage('deploy-into-EKS-Cluster') {
+         KubernetesDeploy(configs:'deploytokens.yml', kubeconfigid:'kube-config',enableconfigSubstitution:true)
+         
+      }
    }
 }
